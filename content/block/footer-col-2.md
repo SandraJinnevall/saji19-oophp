@@ -1,3 +1,3 @@
-#### Footer col 2
+####OM MIG
 
-Med brödtext i ett stycke som säger något trevligt om just detta block, eller kanske en lista av länkar.
+Namn: Sandra jinnevall Ålder: 21 år. Intresse: Fotografering & träning.
