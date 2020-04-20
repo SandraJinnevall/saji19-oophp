@@ -7,8 +7,6 @@
  * init game och kallar på spelet.
  */
 $app->router->get("guess/init", function () use ($app) {
-    session_name("saji");
-    session_start();
     $game = new Saji\Guess\Guess(0, 6);
     $game->random();
     $_SESSION["number"] = $game->getNumber();
@@ -87,7 +85,6 @@ $app->router->get("guess/play", function () use ($app) {
     }
 
     if ($doInit) {
-        session_destroy();
         return $app->response->redirect("guess/init");
     }
 
