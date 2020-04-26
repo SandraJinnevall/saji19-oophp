@@ -3,7 +3,9 @@ Spela spelet Dice100
 
 Välkommen!
 
-[Starta ett nytt spel!](dice/init)
+[Starta ett nytt spel!](dice1/init)
+
+OBS! Du kommer att få trycka åt datorn men datorn bestämmer själv hur många gånger den vill slå och när den vill spara.
 
 Spelregler och spelrunda
 ============================
