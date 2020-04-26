@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 class ExampleTest extends TestCase
 {
     /**
-     * Testar så att tärningarna finns och att det inte blir null
+     * Testar hela klassen diceHand
      */
     public function testDiceHand()
     {
@@ -18,91 +18,78 @@ class ExampleTest extends TestCase
         $this->assertInstanceOf("\Saji\Dice\DiceHand", $dice);
 
         $dice->roll();
+        $dice->values();
         $this->assertNotNull($dice->values());
-    }
-
-    /**
-     * Testar så att första tärningen inte är null
-     */
-    public function testDiceHandValue1()
-    {
-        $dice = new DiceHand();
-        $this->assertInstanceOf("\Saji\Dice\DiceHand", $dice);
-
-        $dice->roll();
         $this->assertNotNull($dice->values1());
-    }
-
-    /**
-     * Testar så att andra tärningen inte är null
-     */
-    public function testDiceHandValue2()
-    {
-        $dice = new DiceHand();
-        $this->assertInstanceOf("\Saji\Dice\DiceHand", $dice);
-
-        $dice->roll();
         $this->assertNotNull($dice->values2());
-    }
-
-    /**
-     * Kollar så isOne returnerar bool-värde
-     */
-    public function testDiceHandIsOne()
-    {
-        $dice = new DiceHand();
-        $this->assertInstanceOf("\Saji\Dice\DiceHand", $dice);
-
-        $dice->roll();
-        $dice->values();
         $this->assertIsBool($dice->IsOne());
-    }
-
-    /**
-     * Testar så att sum() inte är null
-     */
-    public function testDiceHandSum()
-    {
-        $dice = new DiceHand();
-        $this->assertInstanceOf("\Saji\Dice\DiceHand", $dice);
-
-        $dice->roll();
-        $dice->values();
         $this->assertNotNull($dice->sum());
     }
 
+
     /**
-     * Testar klassen dice så roll inte är null
+     * Testar klassen dice
      */
     public function testDiceRoll()
     {
         $dice = new Dice();
         $this->assertInstanceOf("\Saji\Dice\Dice", $dice);
-
+        $dice->roll();
+        $dice->values();
+        $this->assertNotNull($dice->sum());
         $this->assertNotNull($dice->roll());
-    }
-
-    /**
-     * Testar klassen dice kollar så getDicesArray är en array
-     */
-    public function testDiceGetDicesArray()
-    {
-        $dice = new Dice();
-        $this->assertInstanceOf("\Saji\Dice\Dice", $dice);
-        $dice->roll();
-
         $this->assertIsArray($dice->getDicesArray());
+        $this->assertIsArray($dice->roll());
+        $this->assertIsArray($dice->values());
+        $this->assertNotNull($dice->values1());
+        $this->assertNotNull($dice->values2());
+        $this->assertNotNull($dice->getLastRoll());
+        $this->assertIsBool($dice->IsOne());
     }
 
     /**
-     * Testar klassen dice kollar så roll returnerar en array
+     * Kollar så getHistogramMax() inte är tom
      */
-    public function testDiceRollIsArray()
+    public function testDiceHistogram2()
     {
-        $dice = new Dice();
-        $this->assertInstanceOf("\Saji\Dice\Dice", $dice);
-        $dice->roll();
+        $dice = new DiceHistogram2();
+        $this->assertInstanceOf("\Saji\Dice\DiceHistogram2", $dice);
 
-        $this->assertIsArray($dice->roll());
+        $dice->roll();
+        $this->assertNotNull($dice->getHistogramMax());
     }
+
+    /**
+     * Kollar så getAsText(), getSerie(),
+     * och injectData() returnerar string
+     */
+    public function testHistograminjectData()
+    {
+        $dice = new DiceHistogram2();
+        $this->assertInstanceOf("\Saji\Dice\DiceHistogram2", $dice);
+        $dice->roll();
+        $class = new Histogram();
+        $class->injectData($dice);
+        $this->assertIsObject($class);
+        $out = $class->getAsText();
+        $this->assertIsString($out->one);
+        $this->assertIsArray($class->getSerie());
+        $this->assertIsArray($dice->getHistogramSerie());
+    }
+
+    /**
+     * Kollar getHistogramMin() och getHistogramMax i HistogramTrait2
+     */
+    public function testHistogramTrait2getMin()
+    {
+        $dice = new DiceHistogram2();
+        $this->assertInstanceOf("\Saji\Dice\DiceHistogram2", $dice);
+        $res = $dice->getHistogramMin();
+        $exp = 1;
+        $this->assertEquals($exp, $res);
+
+        $dice->roll();
+        $this->assertSame(max($dice->getHistogramSerie()), $dice->getHistogramMax());
+    }
+
 }
