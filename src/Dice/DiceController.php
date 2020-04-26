@@ -135,7 +135,7 @@ class DiceController implements AppInjectableInterface
         ];
 
         $this->app->page->add("dice1/playdice", $data);
-        $this->app->page->add("dice1/debugdice");
+        // $this->app->page->add("dice1/debugdice");
 
         return $this->app->page->render([
             "title" => $title,

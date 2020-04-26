@@ -91,5 +91,4 @@ class ExampleTest extends TestCase
         $dice->roll();
         $this->assertSame(max($dice->getHistogramSerie()), $dice->getHistogramMax());
     }
-
 }
