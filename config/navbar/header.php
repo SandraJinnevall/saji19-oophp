@@ -74,11 +74,6 @@ return [
             "title" => "Dokumentation av ramverk och liknande.",
         ],
         [
-            "text" => "Test &amp; Lek",
-            "url" => "lek",
-            "title" => "Testa och lek med test- och exempelprogram",
-        ],
-        [
             "text" => "Anax dev",
             "url" => "dev",
             "title" => "Anax development utilities",
@@ -92,6 +87,11 @@ return [
             "text" => "Dice100",
             "url" => "dice-game",
             "title" => "Dice100",
+        ],
+        [
+            "text" => "Movie",
+            "url" => "movie",
+            "title" => "Movie",
         ],
     ],
 ];
