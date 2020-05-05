@@ -18,12 +18,12 @@ class MyTextFilter
     //  * @var array $filters Supported filters with method names of
     //  *                     their respective handler.
     //  */
-    // private $filters = [
-    //     "bbcode"    => "bbcode2html",
-    //     "link"      => "makeClickable",
-    //     "markdown"  => "markdown",
-    //     "nl2br"     => "nl2br",
-    // ];
+    private $filters = [
+        "bbcode"    => "bbcode2html",
+        "link"      => "makeClickable",
+        "markdown"  => "markdown",
+        "nl2br"     => "nl2br",
+    ];
 
 
 
@@ -35,34 +35,20 @@ class MyTextFilter
      *
      * @return string with the formatted text.
      */
-    public function parse($text, $filter)
+    public function parse($string, $filter)
     {
-        switch ($filter) {
-            case "bbcode":
-                $string = $this->bbcode2html($text);
-                break;
-
-            case "link":
-                $string = $this->makeClickable($text);
-                break;
-
-            case "markdown":
-                $string = $this->markdown($text);
-                break;
-
-            case "nl2br":
-                $string = $this->nl2br($text);
-                break;
-
-            default:
-                $string = "Filtret är" . $text;
-                break;
+        if (!is_array($filter)) {
+            $filter = strtolower($filter);
+            $filter = preg_replace('/\s/', '', explode(',', $filter));
+        }
+        foreach ($filter as $key) {
+            if (!isset($this->filters[$key])) {
+                $string = "Filtret finns inte";
+            }
+            $string = call_user_func_array([$this, $this->filters[$key]], [$string]);
         }
         return $string;
     }
-
-
-
 
     /**
      * Helper, BBCode formatting converting to HTML.
@@ -122,10 +108,14 @@ class MyTextFilter
      * @param string $text The text that should be formatted.
      *
      * @return string as the formatted html text.
+     * @SuppressWarnings(PHPMD.LongVariable)
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      */
     public function markdown($text)
     {
-        return MarkdownExtra::defaultTransform($text);
+        $parser = new MarkdownExtra;
+        $parser->fn_id_prefix = "post22-";
+        return $parser->transform($text);
     }
 
 

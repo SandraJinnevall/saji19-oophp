@@ -98,5 +98,20 @@ return [
             "url" => "textfilter",
             "title" => "TextFilter",
         ],
+        [
+            "text" => "Content",
+            "url" => "content",
+            "title" => "Content",
+        ],
+        [
+            "text" => "Blog",
+            "url" => "content/blog",
+            "title" => "Blog",
+        ],
+        [
+            "text" => "Pages",
+            "url" => "content/pages",
+            "title" => "Pages",
+        ],
     ],
 ];
